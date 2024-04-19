@@ -1,32 +1,27 @@
 class Solution {
     public String longestPalindrome(String s) {
+        int start=0;
+        int end=0;
         int n=s.length();
-        if(s==null || s.length()<2){
-            return s;
-        }
-        int maxLen=0;
-        String longestPalindromic="";
         for(int i=0;i<n;i++){
-            for(int j=i+1;j<=n;j++){
-                String substrings=s.substring(i,j);
-                if(isPalindrome(substrings)&& substrings.length()>maxLen){
-                    maxLen=substrings.length();
-                    longestPalindromic=substrings;
-                }
+            //centre is not same
+            int len1=expandFromCentre(s,i,i+1);
+            //centre is same
+            int len2=expandFromCentre(s,i,i);
+            //max of both
+            int len=Math.max(len1,len2);
+            if(end-start<len){
+                start=i-(len-1)/2;
+                end=i+len/2;
             }
         }
-        return longestPalindromic;
+        return s.substring(start,end+1);//as last indx not included so +1;
     }
-    public boolean isPalindrome(String s){
-        int left=0;
-        int right=s.length()-1;
-        while(left<right){
-            if(s.charAt(left)!=s.charAt(right)){
-                return false;
-            }
-            left++;
-            right--;
+    public int expandFromCentre(String s,int i,int j){
+        while(i>=0 && j<s.length() && s.charAt(i)==s.charAt(j)){
+            i--;
+            j++;
         }
-        return true;
+        return j-i-1;
     }
 }
