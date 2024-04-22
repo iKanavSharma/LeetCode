@@ -34,7 +34,7 @@ class Solution {
         if(strtIdx==-1){
             return "";
         }
-        int endIndx=Math.min(strtIdx+minLen,s.length());
-        return s.substring(strtIdx,endIndx);
+        
+        return s.substring(strtIdx,strtIdx+minLen);
     }
 }
