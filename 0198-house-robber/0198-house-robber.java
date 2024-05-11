@@ -1,19 +1,20 @@
 class Solution {
-    public int helper(int []nums,int i,int dp[]){
-        if(i>=nums.length){
-            return 0;
+    private int helper(int n,int nums[],int dp[]){
+        dp[0]=nums[0];
+        for(int i=1;i<n;i++){
+            int pick=nums[i];
+        if(i>1){
+            pick+=dp[i-2];
         }
-        if(dp[i]!=-1){
-            return dp[i];
+        int notPick=0+dp[i-1];
+        dp[i]=Math.max(pick,notPick);
         }
-        int current=nums[i]+helper(nums,i+2,dp);
-        int skipCurrent=helper(nums,i+1,dp);
-        return dp[i]=Math.max(current,skipCurrent);
+        return dp[n-1];
     }
     public int rob(int[] nums) {
         int n=nums.length;
-        int dp[]=new int [n];
+        int dp[]=new int [n+1];
         Arrays.fill(dp,-1);
-        return helper(nums,0,dp);
+        return helper(n,nums,dp);
     }
 }
