@@ -1,11 +1,6 @@
 class Solution {
-    void swap(int nums[],int i,int j){
-        int temp=nums[i];
-        nums[i]=nums[j];
-        nums[j]=temp;
-    }
-    void reverse(int nums[],int start){
-        int i=start;
+    private void reverse(int nums[],int strt){
+        int i=strt;
         int j=nums.length-1;
         while(i<j){
             swap(nums,i,j);
@@ -13,20 +8,25 @@ class Solution {
             j--;
         }
     }
+    private void swap(int nums[],int i,int j){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
     public void nextPermutation(int[] nums) {
-        int indx=-1;//index for break point
         int n=nums.length;
-        for(int i=n-2;i>=0;i--){//backward travesral for finding breaking point
+        int indx=-1;
+        for(int i=n-2;i>=0;i--){
             if(nums[i]<nums[i+1]){
                 indx=i;
                 break;
             }
         }
         if(indx==-1){
-            reverse(nums,0);//last permutation so next will be first array
+            reverse(nums,0);//from starting point
             return;
         }
-        for(int i=n-1;i>=0;i--){
+        for(int i=n-1;i>=0;i--){//swap til indx
             if(nums[i]>nums[indx]){
                 swap(nums,i,indx);
                 break;
@@ -35,4 +35,3 @@ class Solution {
         reverse(nums,indx+1);
     }
 }
-       
