@@ -1,34 +1,27 @@
 class MyStack {
-    Queue<Integer> q1=new LinkedList<>();
-    Queue<Integer> q2=new LinkedList<>();
-    public  void swap(){
-        //Extra variable for swapping
-        Queue<Integer> temp=q1;
-        q1=q2;
-        q2=temp;
-    }
+    Queue<Integer> queue=new LinkedList<>();
     public MyStack() {
         
     }
     
     public void push(int x) {
-        q2.add(x);
-        while(!q1.isEmpty()){
-            q2.add(q1.poll());
+        queue.add(x);
+        for(int i=0;i<queue.size()-1;i++){
+            queue.add(queue.peek());
+            queue.poll();
         }
-        swap();
     }
     
     public int pop() {
-        return q1.poll();
+        return queue.poll();
     }
     
     public int top() {
-        return q1.peek();
+        return queue.peek();
     }
     
     public boolean empty() {
-        return q1.isEmpty();
+        return queue.isEmpty();
     }
 }
 
